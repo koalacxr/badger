@@ -83,7 +83,8 @@ var (
 	ErrInvalidLoadingMode = errors.New("Invalid ValueLogLoadingMode, must be FileIO or MemoryMap")
 )
 
-const maxKeySize = 1 << 16 // Key length can't be more than uint16, as determined by table::header.
+// Key length can't be more than uint16, as determined by table::header.
+const maxKeySize = 1<<16 - 8 // 8 Bytes is for appending timestamp
 
 func exceedsMaxKeySizeError(key []byte) error {
 	return errors.Errorf("Key with size %d exceeded %d limit. Key:\n%s",
